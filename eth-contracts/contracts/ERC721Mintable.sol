@@ -27,15 +27,15 @@ contract Ownable {
         emit TransferOwnership(address(0), _owner);
     }
 
-    function owner() public view returns(address) {
-        return owner;
+    function owner() external view returns(address) {
+        return _owner;
     }
 
-    function transferOwnership(address newOwner) public onlyOwner {
+    function transferOwnership(address newOwner) external onlyOwner {
         // TODO add functionality to transfer control of the contract to a newOwner.
         // make sure the new owner is a real address
         require(newOwner != address(0), "Invalid Address to transfer ownership.");
-        emit TransferOwnership(owner(), newOwner);
+        emit TransferOwnership(_owner, newOwner);
         _owner = newOwner;
     }
 }
@@ -49,7 +49,7 @@ contract Ownable {
 
 contract Pausable is Ownable {
 
-    address private _paused;
+    bool private _paused;
 
     event Paused(address indexed owner);
     event Unpaused(address indexed owner);
@@ -68,7 +68,11 @@ contract Pausable is Ownable {
         _paused = false;
     }
 
-    function setPaused(bool pause) public onlyOwner {
+    function isPaused() external view returns(bool) {
+        return _paused;
+    }
+
+    function setPaused(bool pause) external onlyOwner {
         require(pause != _paused, "Contract is already paused or unpaused.");
         _paused = pause;
         if (pause) {
@@ -538,7 +542,7 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     // require the token exists before setting
     function _setTokenURI(uint256 tokenId) internal {
         require(_exists(tokenId));
-        _tokenURIs[tokenId] = strConcat(baseTokenURI(), uint2str(tokenId));
+        _tokenURIs[tokenId] = strConcat(_baseTokenURI, uint2str(tokenId));
     }
 
 
@@ -554,6 +558,16 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 //      -calls the superclass mint and setTokenURI functions
 
 contract CustomERC721Token is ERC721Metadata {
+
+    constructor() public ERC721Metadata("RealStateNFT", "REM", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") {
+
+    }
+
+    function mint(address to, uint256 tokenId) onlyOwner external returns(bool) {
+        _mint(to, tokenId);
+        _setTokenURI(tokenId);
+        return true;
+    }
 
 }
 
