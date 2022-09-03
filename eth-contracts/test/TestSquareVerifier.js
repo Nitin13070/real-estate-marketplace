@@ -5,3 +5,26 @@
 
     
 // Test verification with incorrect proof
+
+
+var Verifier = artifacts.require('Verifier');
+const {proof, inputs} = require('./proof.json');
+
+contract('TestVerifier', accounts => {
+
+    describe('test verification', function() {
+        beforeEach(async function() {
+            this.contract = await Verifier.new();
+        });
+
+        it('Test verification with correct proof', async function() {
+            let result = await this.contract.verifyTx(proof.a, proof.b, proof.c, inputs);
+            assert.equal(result, true, "Verification must not be failed.");
+        });
+
+        it('Test verification with incorrect proof', async function() {
+            let result = await this.contract.verifyTx(proof.a, proof.b, proof.c, [5, 6]);
+            assert.equal(result, false, "Verification must not be successful");
+        });
+    });
+})
