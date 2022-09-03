@@ -77,7 +77,31 @@ contract('TestERC721Mintable', accounts => {
             assert.equal(contractOwner, account_one, "Incorrect Contract Owner.");
         })
 
+        it('transfer contract ownership', async function() {
+            await this.contract.transferOwnership(account_two, {from: account_one});
+
+            let contractOwner = await this.contract.owner();
+            assert.equal(contractOwner, account_two, "Incorrect Contract Owner.");
+        });
+
+        it('validate pausable contract', async function() {
+
+            await this.contract.setPaused(true, {from: account_one});
+
+            let isFailed = false;
+
+            try {
+                await this.contract.mint(account_four, 5);
+            } catch(e) {
+                isFailed = true;
+            }
+            assert.equal(isFailed, true, "Contract operation must fail when paused.");
+
+            await this.contract.setPaused(false, {from: account_one});
+
+            await this.contract.mint(account_four, 5);
+        });
+
     });
 
-    // TODO : Add Test for Contract Ownership and Paused.
 })
