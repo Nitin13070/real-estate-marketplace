@@ -70,7 +70,7 @@ truffle test
 
 <details>
     <summary>Expand to View</summary>
-    ```
+
     [
         {
         "inputs": [
@@ -763,7 +763,7 @@ truffle test
         "type": "function"
         }
     ]
-    ```
+
 </details>
 
 ## Project Resources
