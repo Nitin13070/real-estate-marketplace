@@ -47,20 +47,29 @@ truffle test
 1. Zokrates's Verifier Contract
 
 > etherscan url = https://rinkeby.etherscan.io/address/0x06120c6E9DD3989d98BCe34511149aE35408e932
+
 > contract address = 0x06120c6E9DD3989d98BCe34511149aE35408e932
+
 > transaction hash = 0x822b5c58c756daa028d6fd6d3c266659076bf9efb795b6774a8494d311ebcdb7
 
 2. ERC-721 Token Contract (RealStateNFT)
 
 > etherscan url = https://rinkeby.etherscan.io/address/0xca3b93178829D0df961516972B56d2d7986a575B
+
 > token url = https://rinkeby.etherscan.io/token/0xca3b93178829D0df961516972B56d2d7986a575B
+
 > contract address = 0xca3b93178829D0df961516972B56d2d7986a575B
+
 > transaction hash = 0x9f1511eca3e5391884f38f57e4de9e80c1c3e40cf23e078b1f89a4f5f3d7682e
 
-3. Contract ABI
+3. OpenSea MarketPlace Storefront link
+
+> https://testnets.opensea.io/collection/realstatenft
+
+4. Contract ABI
+
 <details>
     <summary>Expand to View</summary>
-
     ```
     [
         {
@@ -755,7 +764,6 @@ truffle test
         }
     ]
     ```
-
 </details>
 
 ## Project Resources
