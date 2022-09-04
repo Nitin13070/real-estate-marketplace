@@ -563,7 +563,7 @@ contract ERC721MintableComplete is ERC721Metadata {
 
     }
 
-    function mint(address to, uint256 tokenId) onlyOwner whenNotPaused external returns(bool) {
+    function mint(address to, uint256 tokenId) onlyOwner whenNotPaused public returns(bool) {
         _mint(to, tokenId);
         _setTokenURI(tokenId);
         return true;
